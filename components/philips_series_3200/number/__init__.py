@@ -1,8 +1,3 @@
-diff --git a/components/philips_series_3200/number/__init__.py b/components/philips_series_3200/number/__init__.py
-index 5555555..6666666 100644
---- a/components/philips_series_3200/number/__init__.py
-+++ b/components/philips_series_3200/number/__init__.py
-@@ -1,6 +1,6 @@
  import esphome.codegen as cg
  import esphome.config_validation as cv
  from esphome.components import number
