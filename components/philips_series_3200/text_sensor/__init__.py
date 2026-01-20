@@ -1,8 +1,3 @@
-diff --git a/components/philips_series_3200/text_sensor/__init__.py b/components/philips_series_3200/text_sensor/__init__.py
-index 1111111..2222222 100644
---- a/components/philips_series_3200/text_sensor/__init__.py
-+++ b/components/philips_series_3200/text_sensor/__init__.py
-@@ -1,26 +1,27 @@
  import esphome.codegen as cg
  import esphome.config_validation as cv
  from esphome.components import text_sensor
