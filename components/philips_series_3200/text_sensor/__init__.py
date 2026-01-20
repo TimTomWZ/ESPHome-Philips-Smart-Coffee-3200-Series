@@ -1,32 +1,28 @@
-import esphome.codegen as cg
-import esphome.config_validation as cv
-from esphome.components import text_sensor
-from esphome.const import CONF_ID
+diff --git a/components/philips_series_3200/text_sensor/__init__.py b/components/philips_series_3200/text_sensor/__init__.py
+index 1111111..2222222 100644
+--- a/components/philips_series_3200/text_sensor/__init__.py
++++ b/components/philips_series_3200/text_sensor/__init__.py
+@@ -1,26 +1,27 @@
+ import esphome.codegen as cg
+ import esphome.config_validation as cv
+ from esphome.components import text_sensor
+ from esphome.const import CONF_ID
 
-from .. import CONTROLLER_ID, PhilipsSeries3200, philips_series_3200_ns
+ from .. import CONTROLLER_ID, PhilipsSeries3200, philips_series_3200_ns
 
-USE_LATTE = "use_latte"
-STATUS_SENSOR_ID = "status_sensor_id"
+ USE_LATTE = "use_latte"
+ STATUS_SENSOR_ID = "status_sensor_id"
 
-philips_status_sensor_ns = philips_series_3200_ns.namespace("philips_status_sensor")
-StatusSensor = philips_status_sensor_ns.class_(
-    "StatusSensor", text_sensor.TextSensor, cg.Component
-)
+ philips_status_sensor_ns = philips_series_3200_ns.namespace("philips_status_sensor")
+ StatusSensor = philips_status_sensor_ns.class_(
+     "StatusSensor", text_sensor.TextSensor, cg.Component
+ )
 
-CONFIG_SCHEMA = text_sensor.TEXT_SENSOR_SCHEMA.extend(
-    {
-        cv.GenerateID(): cv.declare_id(StatusSensor),
-        cv.Required(CONTROLLER_ID): cv.use_id(PhilipsSeries3200),
-        cv.Optional(USE_LATTE, default=False): cv.boolean,
-    }
-).extend(cv.COMPONENT_SCHEMA)
-
-
-async def to_code(config):
-    parent = await cg.get_variable(config[CONTROLLER_ID])
-    var = cg.new_Pvariable(config[CONF_ID])
-    await cg.register_component(var, config)
-    await text_sensor.register_text_sensor(var, config)
-
-    cg.add(var.set_use_latte(config[USE_LATTE]))
-    cg.add(parent.add_status_sensor(var))
+-CONFIG_SCHEMA = text_sensor.TEXT_SENSOR_SCHEMA.extend(
++CONFIG_SCHEMA = text_sensor.text_sensor_schema(StatusSensor).extend(
+     {
+         cv.GenerateID(): cv.declare_id(StatusSensor),
+         cv.Required(CONTROLLER_ID): cv.use_id(PhilipsSeries3200),
+         cv.Optional(USE_LATTE, default=False): cv.boolean,
+     }
+ ).extend(cv.COMPONENT_SCHEMA)
