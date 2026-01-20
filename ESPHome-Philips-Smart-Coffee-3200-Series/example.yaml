@@ -1,0 +1,122 @@
+esphome:
+  name: "esp32-kaffemaskin"
+  friendly_name: ESP32 Kaffemaskin
+
+esp32:
+  board: lolin_s2_mini
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+  # Disable serial logging
+  baud_rate: 0
+
+external_components:
+  - source: github://quack3d/ESPHome-Philips-Smart-Coffee-3200-Series@main
+
+uart:
+  # UART connected to the mainboard
+  - tx_pin: GPIO39
+    rx_pin: GPIO37   
+    baud_rate: 115200
+    id: uart_mainboard
+
+  # UART connected to the display
+  - tx_pin: GPIO17
+    rx_pin: GPIO21  
+    baud_rate: 115200
+    id: uart_display   
+
+philips_series_3200:
+  display_uart: uart_display
+  mainboard_uart: uart_mainboard
+  power_pin: GPIO35
+  id: philips
+
+text_sensor:
+  - platform: philips_series_3200
+    controller_id: philips
+    id: status
+    name: "Status"
+    use_latte: true    
+
+switch:
+  - platform: philips_series_3200
+    controller_id: philips
+    name: "Power with clean"
+    icon: mdi:coffee-maker
+    clean: true
+  - platform: philips_series_3200
+    controller_id: philips
+    name: "Power without clean"
+    icon: mdi:coffee-maker
+    clean: false      
+
+button:
+  - platform: philips_series_3200
+    controller_id: philips
+    action: MAKE_COFFEE
+    name: "Make Coffee"
+    icon: mdi:coffee
+
+  - platform: philips_series_3200
+    controller_id: philips
+    action: SELECT_COFFEE
+    name: "Select Coffee"
+    icon: mdi:coffee    
+
+  - platform: philips_series_3200
+    controller_id: philips
+    action: SELECT_ESPRESSO
+    name: "Select Espresso"
+    icon: mdi:coffee 
+
+  - platform: philips_series_3200
+    controller_id: philips
+    action: SELECT_HOT_WATER
+    name: "Select Hot water"
+    icon: mdi:tea
+
+  - platform: philips_series_3200
+    controller_id: philips
+    action: SELECT_STEAM
+    name: "Select Latte Macchiato"
+    icon: mdi:coffee
+
+  - platform: philips_series_3200
+    controller_id: philips
+    action: SELECT_AMERICANO
+    name: "Select Americano"
+    icon: mdi:coffee    
+
+  - platform: philips_series_3200
+    controller_id: philips
+    action: SELECT_CAPPUCCINO
+    name: "Select Cappuccino"
+    icon: mdi:coffee 
+
+  - platform: philips_series_3200
+    controller_id: philips
+    action: PLAY_PAUSE
+    name: "Select play/pause"
+    icon: mdi:play-pause
+
+number:
+  - platform: philips_series_3200
+    type: size
+    name: "Size"
+    controller_id: philips
+    status_sensor_id: status
+
+  - platform: philips_series_3200
+    type: bean
+    name: "Strength"
+    controller_id: philips
+    status_sensor_id: status    
+
+  - platform: philips_series_3200
+    type: milk
+    name: "Milk"
+    controller_id: philips
+    status_sensor_id: status  
