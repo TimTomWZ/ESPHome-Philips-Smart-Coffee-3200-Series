@@ -1,8 +1,3 @@
-diff --git a/components/philips_series_3200/switch/__init__.py b/components/philips_series_3200/switch/__init__.py
-index 3333333..4444444 100644
---- a/components/philips_series_3200/switch/__init__.py
-+++ b/components/philips_series_3200/switch/__init__.py
-@@ -1,24 +1,24 @@
  import esphome.codegen as cg
  import esphome.config_validation as cv
  from esphome.components import switch
